@@ -1,94 +1,93 @@
-# Activity 1 — Plan It, Challenge It, Delegate It
+# Activity 1 — Connect External Tools
 
-**Goal:** Use Vibe the way you'd work with a strong engineer — align on a plan, then let them execute.
-
----
-
-## The feature
-
-We're going to add **task priorities** to the sample app:
-- A `priority` field (HIGH, MEDIUM, LOW) on every task
-- Default to MEDIUM when not specified
-- Filter tasks by priority on `GET /tasks?priority=HIGH`
+**Goal:** Add MCP servers to Vibe so it can browse the web, fetch pages, and access files.
 
 ---
 
-## Step 1 — Plan with Vibe
-
-Open Vibe in the sample-app directory:
+## Step 1 — Find your config file
 
 ```bash
-cd sample-app
-vibe
+# macOS / Linux
+~/.vibe/config.toml
+
+# If it doesn't exist:
+mkdir -p ~/.vibe
+touch ~/.vibe/config.toml
 ```
 
-Start a conversation:
-
-```
-I want to add a priority field to tasks. HIGH, MEDIUM, LOW.
-Users should be able to filter by priority on GET /tasks.
-What's your plan?
-```
-
-Read the plan. Don't accept the first version.
+Open the file in your editor.
 
 ---
 
-## Step 2 — Challenge the plan
+## Step 2 — Add MCP servers
 
-Push back. Ask hard questions:
+Paste this into `~/.vibe/config.toml`:
 
-- "What happens if someone sends an invalid priority?"
-- "Should the filter support multiple priorities at once?"
-- "What about existing tasks that don't have a priority?"
-- "What tests are you going to write?"
+```toml
+# Browser automation — visit pages, click, take screenshots
+[[mcp_servers]]
+name = "playwright"
+transport = "stdio"
+command = "npx"
+args = ["-y", "@playwright/mcp"]
 
-Keep going until the plan is solid. This is the part that matters — a good plan means good output.
+# Fetch any URL as clean markdown
+[[mcp_servers]]
+name = "fetch"
+transport = "stdio"
+command = "uvx"
+args = ["mcp-server-fetch"]
 
----
-
-## Step 3 — Delegate
-
-When you're happy with the plan:
-
-```bash
-vibe --dangerously-skip-permissions
+# Read/write files outside your project directory
+[[mcp_servers]]
+name = "filesystem"
+transport = "stdio"
+command = "npx"
+args = ["-y", "@anthropic-ai/mcp-filesystem", "/tmp"]
 ```
 
-This lets Vibe execute without asking for permission at each step. It will:
-- Edit the model
-- Update the endpoints
-- Write tests
-- Run them
-
-Go get coffee. Or watch it work — your call.
+No API keys. No sign up. All free.
 
 ---
 
-## Step 4 — Review the result
+## Step 3 — Restart Vibe
 
-When it's done:
+The config only loads at startup:
 
-```bash
-git diff
+- **VSCode**: close and reopen the Vibe panel
+- **CLI**: quit (`Ctrl+C`) and run `vibe` again
+
+---
+
+## Step 4 — Test Playwright
+
+```
+Use Playwright to visit https://mistral.ai and describe what you see.
 ```
 
-Look at what it built:
-- Did it follow the plan you agreed on?
-- Do the tests pass? (`pytest`)
-- Would you approve this PR?
+You should see Vibe call the `playwright` tool. If it works, Vibe now has a browser.
 
 ---
 
-## Step 5 — Try your own feature
+## Step 5 — Test Fetch
 
-Pick something else to add:
-- Due dates on tasks
-- A `/tasks/stats` endpoint that returns counts by status
-- Bulk operations (mark multiple tasks complete at once)
+```
+Use Fetch to get the content of https://news.ycombinator.com and tell me the top 3 stories.
+```
 
-Go through the same loop: plan, challenge, delegate, review.
+Fetch pulls web pages as clean markdown — useful for reading docs, articles, APIs.
 
 ---
 
-**Done?** Move on to [Activity 2](../activity2/README.md).
+## Step 6 — Try chaining them
+
+```
+Use Playwright to screenshot https://mistral.ai, save it to /tmp/mistral.png,
+then use Fetch to get the page content and summarize it in 3 bullets.
+```
+
+When tools chain together, things get interesting.
+
+---
+
+**Done?** Move on to [Activity 2](../activity2/README.md) — build a skill that uses these tools.
