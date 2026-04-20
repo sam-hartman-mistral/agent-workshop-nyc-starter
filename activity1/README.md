@@ -1,66 +1,93 @@
-# Activity 1 — Your First Skill
+# Activity 1 — Plan It, Challenge It, Delegate It
 
-**Goal:** Write a `/pr-reviewer` skill and invoke it in Vibe.
-
-A skill is a markdown file that tells an agent how to behave. That's it.
+**Goal:** Use Vibe the way you'd work with a strong engineer — align on a plan, then let them execute.
 
 ---
 
-## Step 1 — Create the skill file
+## The feature
 
-Create a file called `pr-reviewer.md` in a `skills/` folder:
-
-```
-mkdir skills
-```
-
-Paste this into `skills/pr-reviewer.md`:
-
-```markdown
-# pr-reviewer
-
-You are a specialized code review agent.
-
-When reviewing a pull request:
-- Check for missing or insufficient tests
-- Flag any hardcoded secrets or environment variables
-- Suggest naming improvements
-- Note security concerns (SQL injection, XSS, etc.)
-
-Output format: bulleted list grouped by severity.
-  CRITICAL · HIGH · MEDIUM · LOW
-
-Do not attempt to fix issues — only report them.
-```
+We're going to add **task priorities** to the sample app:
+- A `priority` field (HIGH, MEDIUM, LOW) on every task
+- Default to MEDIUM when not specified
+- Filter tasks by priority on `GET /tasks?priority=HIGH`
 
 ---
 
-## Step 2 — Invoke it in Vibe
+## Step 1 — Plan with Vibe
 
-Open Vibe in this directory:
+Open Vibe in the sample-app directory:
 
 ```bash
+cd sample-app
 vibe
 ```
 
-Then type:
+Start a conversation:
 
 ```
-/pr-reviewer review the changes in this repo
+I want to add a priority field to tasks. HIGH, MEDIUM, LOW.
+Users should be able to filter by priority on GET /tasks.
+What's your plan?
 ```
 
-Vibe will load the skill and apply it.
+Read the plan. Don't accept the first version.
 
 ---
 
-## Step 3 — Iterate
+## Step 2 — Challenge the plan
 
-Try changing the skill:
-- Add a rule specific to your team's standards
-- Change the output format
-- Add an example of what a "CRITICAL" issue looks like
+Push back. Ask hard questions:
 
-Re-invoke it and see the difference.
+- "What happens if someone sends an invalid priority?"
+- "Should the filter support multiple priorities at once?"
+- "What about existing tasks that don't have a priority?"
+- "What tests are you going to write?"
+
+Keep going until the plan is solid. This is the part that matters — a good plan means good output.
+
+---
+
+## Step 3 — Delegate
+
+When you're happy with the plan:
+
+```bash
+vibe --dangerously-skip-permissions
+```
+
+This lets Vibe execute without asking for permission at each step. It will:
+- Edit the model
+- Update the endpoints
+- Write tests
+- Run them
+
+Go get coffee. Or watch it work — your call.
+
+---
+
+## Step 4 — Review the result
+
+When it's done:
+
+```bash
+git diff
+```
+
+Look at what it built:
+- Did it follow the plan you agreed on?
+- Do the tests pass? (`pytest`)
+- Would you approve this PR?
+
+---
+
+## Step 5 — Try your own feature
+
+Pick something else to add:
+- Due dates on tasks
+- A `/tasks/stats` endpoint that returns counts by status
+- Bulk operations (mark multiple tasks complete at once)
+
+Go through the same loop: plan, challenge, delegate, review.
 
 ---
 

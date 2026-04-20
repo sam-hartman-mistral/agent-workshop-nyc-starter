@@ -1,52 +1,48 @@
 # Activity 3 — Build Something for Your Org
 
-**This one is yours.** No instructions to follow — just build.
+**Pick a template, customize it, run it.**
 
 ---
 
-## The prompt
+## Quick start
 
-Think about the workflows that eat your team's time.
+```bash
+# Pick a template
+cp -r ../templates/code-review ./my-skill
 
-What does "good" look like in your org that every new hire has to learn?
-What's the thing your team does manually that a skilled agent could do?
+# Edit the skill file -- add your org's standards
+# Look for the "CUSTOMIZE" comments
 
-Build a skill or sub-agent for that.
-
----
-
-## Ideas by role
-
-**Engineering**
-- `/incident-runbook` — generate an on-call runbook from an alert
-- `/test-generator` — write tests that match your team's testing patterns
-- `/deploy-checklist` — verify pre-deploy steps specific to your stack
-
-**Product / PM**
-- `/requirements-format` — structure requirements in your team's template
-- `/user-story-writer` — write stories in your team's format and voice
-- `/release-notes` — draft release notes for your internal changelog
-
-**DevOps / Infra**
-- `/config-validator` — check configs against your environment's rules
-- `/cost-report` — summarize cloud spend in your preferred format
-- `/oncall-summary` — turn alert history into a readable incident summary
-
-**Leadership**
-- `/meeting-brief` — turn raw notes into a structured decision doc
-- `/status-update` — draft a weekly status in your org's format
-- `/exec-summary` — condense a long doc to 3 bullets + recommendation
-
----
-
-## Structure (suggested)
-
+# Run it
+vibe
+/code-review review the sample-app/ directory
 ```
-my-org-skills/
-├── skills/
-│   └── your-skill-name.md
-└── agents/          # optional
-    └── your-agent.md
+
+---
+
+## Available templates
+
+| Template | What it does |
+|---|---|
+| `templates/code-review/` | Review PRs using your team's standards |
+| `templates/incident-runbook/` | Generate on-call runbooks from alerts |
+| `templates/deploy-checklist/` | Pre-deploy verification for your stack |
+| `templates/onboarding-guide/` | Help new hires understand a codebase |
+
+Each template has `<!-- CUSTOMIZE -->` comments showing where to add your org's specifics.
+
+Or start from scratch — a skill is just a markdown file.
+
+---
+
+## Try it on real code
+
+If you have time, clone one of your own repos and run your skill against it:
+
+```bash
+git clone <your-repo-url> my-repo
+vibe
+/your-skill review the my-repo/ directory
 ```
 
 ---

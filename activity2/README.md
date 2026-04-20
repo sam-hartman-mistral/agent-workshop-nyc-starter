@@ -1,66 +1,77 @@
-# Activity 2 — Wire a Sub-Agent
+# Activity 2 — Teach It Your Standards
 
-**Goal:** Turn your skill into a named sub-agent that can be invoked on demand.
-
----
-
-## What's a sub-agent?
-
-A sub-agent is an agent with a fixed role, a set of tools, and a goal.
-You define it in a markdown file — same format as a skill, with a bit more structure.
+**Goal:** You just used Vibe bare. Notice how you kept repeating your standards? Write them once so the agent already knows.
 
 ---
 
-## Step 1 — Create the sub-agent file
+## Step 1 — Notice the pattern
 
-Create `agents/pr-agent.md`:
+In Activity 1 you probably told Vibe things like:
+- "Make sure you validate inputs"
+- "Use our error response format"
+- "Don't forget tests"
 
-```
-mkdir agents
-```
-
-```markdown
-# pr-agent
-
-## Role
-You are a senior code reviewer. You are thorough, direct, and specific.
-
-## Behavior
-When invoked, load the `/pr-reviewer` skill from skills/pr-reviewer.md
-and apply it to the current working directory.
-
-After reviewing, summarize:
-1. The top 3 issues (with file + line if possible)
-2. A one-sentence overall assessment
-3. Whether you would approve or request changes
-
-## Tools
-- Read files
-- Run git diff to see recent changes
-```
+Every time. What if it already knew?
 
 ---
 
-## Step 2 — Invoke the sub-agent
+## Step 2 — Write a skill
 
 ```bash
-vibe --agent agents/pr-agent.md
+mkdir skills
 ```
 
-Or from inside a running Vibe session:
+Create `skills/code-review.md`:
 
+```markdown
+# code-review
+
+You are a senior code reviewer for our team.
+
+## Standards
+- All endpoints must have input validation
+- No secrets or hardcoded credentials
+- Error responses must use our ErrorResponse schema
+- Tests required for any new endpoint
+- All functions need docstrings
+
+## Output format
+Bulleted list grouped by severity:
+  CRITICAL / HIGH / MEDIUM / LOW
+
+Cite file and line number for each finding.
+Do not fix issues -- only report them.
 ```
-/agent agents/pr-agent.md review the last commit
-```
+
+Customize the standards section — what does your team actually care about?
 
 ---
 
-## Step 3 — Extend it
+## Step 3 — Try it skilled
 
-Try adding:
-- A rule to check for your team's specific patterns
-- An output section that creates a review comment draft
-- A second skill loaded alongside the first
+Run Vibe from the repo root and invoke the skill:
+
+```bash
+cd ..
+vibe
+```
+
+```
+/code-review review the sample-app/ directory
+```
+
+Compare this output to the generic reviews from Activity 1. Same agent, better results.
+
+---
+
+## Step 4 — Iterate
+
+Try changing the skill:
+- Add a rule specific to your team (naming conventions, error patterns, etc.)
+- Change the output format
+- Add an example of what a "CRITICAL" finding looks like
+
+Re-invoke and see how the output changes.
 
 ---
 
