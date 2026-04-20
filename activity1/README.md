@@ -52,10 +52,7 @@ No API keys. No sign up. All free.
 
 ## Step 3 — Restart Vibe
 
-The config only loads at startup:
-
-- **VSCode**: close and reopen the Vibe panel
-- **CLI**: quit (`Ctrl+C`) and run `vibe` again
+The config only loads at startup. Quit Vibe (`Ctrl+C`) and run `vibe` again.
 
 ---
 

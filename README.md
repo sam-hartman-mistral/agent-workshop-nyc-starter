@@ -6,10 +6,17 @@ Your workspace for the workshop. Everything you need is in this README.
 
 ### 1. Install Vibe
 
-Pick one:
+```bash
+# Mac / Linux
+curl -LsSf https://mistral.ai/vibe/install.sh | bash
 
-- **VSCode** (recommended): Extensions > search "Mistral Vibe" > Install
-- **CLI**: `curl -LsSf https://mistral.ai/vibe/install.sh | bash`
+# Windows (PowerShell)
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+uv tool install mistral-vibe
+
+# Verify
+vibe --version
+```
 
 ### 2. Get your API key
 
@@ -19,8 +26,11 @@ Pick one:
 
 ### 3. Configure Vibe with your API key
 
-- **VSCode**: open Vibe panel > paste key when prompted
-- **CLI**: `vibe --setup`
+```bash
+vibe --setup
+```
+
+Paste your key when prompted.
 
 ### 4. Clone this repo
 
@@ -77,10 +87,7 @@ args = ["-y", "@anthropic-ai/mcp-filesystem", "/tmp"]
 
 ### After saving
 
-Restart Vibe so it picks up the new servers:
-
-- **VSCode**: close and reopen the Vibe panel
-- **CLI**: quit and relaunch `vibe`
+Quit Vibe (`Ctrl+C`) and relaunch it so it picks up the new servers.
 
 ### Verify it works
 
