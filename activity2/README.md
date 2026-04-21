@@ -1,6 +1,6 @@
-# Activity 2 — Build a Skill for Your Org
+# Activity 2 — Build the Pricing Comparison Skill
 
-**Goal:** Use the plan/challenge/delegate loop to build a skill that chains your MCP tools into something useful for your organization.
+**Goal:** Turn the chain from Activity 1 into a reusable skill using plan/challenge/delegate.
 
 ---
 
@@ -8,41 +8,40 @@
 
 A markdown file that tells Vibe how to do something specific. It lives in `skills/` and you invoke it with `/skill-name`.
 
-Your MCP servers are connected. Now tell Vibe how to use them.
+You just chained Playwright + Fetch + SQLite manually. Now let's make Vibe write a skill that does it every time.
 
 ---
 
-## Step 1 — Ideate
+## Step 1 — Set up
 
-What workflow would save you or your team time? Some ideas:
-
-- **Pricing comparison** — Playwright visits pricing pages, Fetch extracts details, SQLite stores + queries a comparison table
-- **Company research** — Playwright visits a website, Fetch pulls news, SQLite stores findings, output a 1-page brief
-- **Competitive analysis** — visit two product sites, extract features, SQLite compares side-by-side
-- **Meeting prep** — Fetch LinkedIn profiles and recent news, SQLite tracks attendee history across meetings
-
-Pick one, or come up with your own.
+```bash
+mkdir -p skills
+vibe
+```
 
 ---
 
 ## Step 2 — Plan with Vibe
 
-Open Vibe in this directory:
-
-```bash
-vibe
-```
-
 Start a conversation:
 
 ```
-I want to build a skill that [describe your workflow].
-It should use Playwright to [what], Fetch to [what],
-and SQLite to [store/query what]. Output [format].
+I want to build a skill called "pricing-compare" that compares
+pricing between two SaaS products.
+
+It should:
+1. Use Playwright to visit both pricing pages
+2. Use Fetch to extract pricing details as markdown
+3. Store the pricing tiers in SQLite (provider, tier, price, features)
+4. Query SQLite to generate a side-by-side comparison
+
+Output a comparison table + which is cheaper at different team sizes.
+Create it as skills/pricing-compare.md.
+
 What's your plan?
 ```
 
-Read the plan carefully.
+Read the plan carefully. Don't accept the first version.
 
 ---
 
@@ -50,12 +49,12 @@ Read the plan carefully.
 
 Push back. Ask hard questions:
 
-- "What if the page is behind a login wall?"
-- "What if Fetch returns garbage HTML?"
-- "How should it handle timeouts?"
-- "Can you add a fallback for when Playwright can't reach the site?"
+- "What if the pricing page loads dynamically with JavaScript?"
+- "What if one provider doesn't list prices publicly?"
+- "How do you handle different billing periods (monthly vs annual)?"
+- "What if the SQLite table already has old data from a previous run?"
 
-Keep going until the plan is solid. This is the part that matters.
+Keep going until the plan is solid. This is the part that matters — a good plan means good output.
 
 ---
 
@@ -67,7 +66,7 @@ When you're happy with the plan:
 vibe --dangerously-skip-permissions
 ```
 
-Let Vibe write the skill file. It will create `skills/your-skill.md` with the workflow, tool chain, and output format.
+Let Vibe write the skill file. It will create `skills/pricing-compare.md`.
 
 ---
 
@@ -76,42 +75,28 @@ Let Vibe write the skill file. It will create `skills/your-skill.md` with the wo
 Invoke your skill:
 
 ```
-/your-skill [your input]
+/pricing-compare compare Mistral and OpenAI
 ```
 
-Does it work? Does it chain the tools correctly? Is the output useful?
+Does it visit both sites? Extract pricing? Store in SQLite? Output a useful comparison?
 
 ---
 
 ## Step 6 — Iterate
 
-Tweak the skill:
-- Change the output format
-- Add error handling instructions
-- Add examples of good output
+Try it again with different products:
 
-Re-invoke and compare. Each iteration makes it better.
-
----
-
-## Want a head start?
-
-Use one of the templates:
-
-```bash
-cp -r ../templates/code-review/skills/ ./skills/
-# Edit skills/code-review.md — look for CUSTOMIZE comments
+```
+/pricing-compare compare Notion and Confluence
 ```
 
-Available templates: `code-review`, `incident-runbook`, `deploy-checklist`, `onboarding-guide`.
+Tweak the skill file if needed:
+- Change the output format
+- Add handling for edge cases you discovered
+- Add examples of good output
+
+Each iteration makes it better.
 
 ---
 
-## Share out
-
-At the end of the session, you'll show what you built:
-- What does your skill do?
-- Which MCP tools does it use?
-- What problem does it solve for your team?
-
-2 minutes each. No pressure.
+**Done?** Move on to [Activity 3](../activity3/README.md) — build your own skill for your org.

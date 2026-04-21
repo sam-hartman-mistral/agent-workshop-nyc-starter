@@ -153,29 +153,10 @@ In Vibe:
 | Activity | What you'll do |
 |---|---|
 | [Activity 1](./activity1/README.md) | Add MCP servers and test them |
-| [Activity 2](./activity2/README.md) | Build a skill for your org using plan/challenge/delegate |
+| [Activity 2](./activity2/README.md) | Build the pricing comparison skill (plan/challenge/delegate) |
+| [Activity 3](./activity3/README.md) | Build your own skill for your org |
 
-We'll walk through Activity 1 together. Activity 2 is yours.
-
----
-
-## Templates
-
-Starter skill templates to customize for your org:
-
-```
-templates/code-review/       Review PRs using your team's standards
-templates/incident-runbook/  Generate on-call runbooks
-templates/deploy-checklist/  Pre-deploy verification
-templates/onboarding-guide/  Help new hires understand a codebase
-```
-
-Quick start:
-
-```bash
-cp -r templates/code-review/skills/ ./skills/
-# Edit skills/code-review.md — look for CUSTOMIZE comments
-```
+We'll walk through Activities 1 and 2 together. Activity 3 is yours.
 
 ---
 
