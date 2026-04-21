@@ -77,12 +77,12 @@ transport = "stdio"
 command = "uvx"
 args = ["mcp-server-fetch"]
 
-# Read/write files outside your project directory
+# Local SQLite database — store, query, compare
 [[mcp_servers]]
-name = "filesystem"
+name = "sqlite"
 transport = "stdio"
-command = "npx"
-args = ["-y", "@anthropic-ai/mcp-filesystem", "/tmp"]
+command = "uvx"
+args = ["mcp-server-sqlite", "--db-path", "/tmp/workshop.db"]
 ```
 
 ### After saving
@@ -94,10 +94,10 @@ Quit Vibe (`Ctrl+C`) and relaunch it so it picks up the new servers.
 In Vibe, try:
 
 ```
-Use Playwright to take a screenshot of https://mistral.ai and save it to /tmp/screenshot.png
+Use Fetch to get the content of https://mistral.ai and summarize it in 3 bullets
 ```
 
-If you see Vibe calling the Playwright tool, you're good.
+If you see Vibe calling the Fetch tool, you're good.
 
 ---
 
@@ -119,23 +119,23 @@ mkdir -p skills
 
 ### Example skill
 
-Create `skills/company-brief.md`:
+Create `skills/pricing-compare.md`:
 
 ```markdown
-# company-brief
+# pricing-compare
 
-Research a company and produce a 1-page brief.
+Compare pricing between two SaaS products.
 
 ## Workflow
-1. Use Playwright to visit the company website
-2. Use Fetch to pull recent news articles
-3. Summarize into a structured brief
+1. Use Playwright to visit both pricing pages
+2. Use Fetch to extract pricing details as markdown
+3. Store pricing tiers in SQLite (product, tier, price, features)
+4. Query SQLite to generate a side-by-side comparison table
 
 ## Output format
-- Company name and what they do (1 sentence)
-- Key products/services
-- Recent news (3 bullets)
-- Team size and funding (if available)
+- Comparison table (tier, price per seat, key features)
+- Which is cheaper at 10, 100, 1000 seats
+- Key differences summary (3 bullets)
 ```
 
 ### Invoke it
@@ -143,7 +143,7 @@ Research a company and produce a 1-page brief.
 In Vibe:
 
 ```
-/company-brief research Stripe
+/pricing-compare compare Notion and Confluence
 ```
 
 ---

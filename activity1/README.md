@@ -1,6 +1,6 @@
 # Activity 1 — Connect External Tools
 
-**Goal:** Add MCP servers to Vibe so it can browse the web, fetch pages, and access files.
+**Goal:** Add MCP servers to Vibe so it can browse the web, fetch pages, and store data.
 
 ---
 
@@ -38,12 +38,12 @@ transport = "stdio"
 command = "uvx"
 args = ["mcp-server-fetch"]
 
-# Read/write files outside your project directory
+# Local SQLite database — store, query, compare
 [[mcp_servers]]
-name = "filesystem"
+name = "sqlite"
 transport = "stdio"
-command = "npx"
-args = ["-y", "@anthropic-ai/mcp-filesystem", "/tmp"]
+command = "uvx"
+args = ["mcp-server-sqlite", "--db-path", "/tmp/workshop.db"]
 ```
 
 No API keys. No sign up. All free.
@@ -76,11 +76,24 @@ Fetch pulls web pages as clean markdown — useful for reading docs, articles, A
 
 ---
 
-## Step 6 — Try chaining them
+## Step 6 — Test SQLite
 
 ```
-Use Playwright to screenshot https://mistral.ai, save it to /tmp/mistral.png,
-then use Fetch to get the page content and summarize it in 3 bullets.
+Create a SQLite table called "companies" with columns: name, industry, and website.
+Insert 3 example companies, then query to show them all.
+```
+
+You should see Vibe create the table, insert rows, and return results. Data persists in `/tmp/workshop.db`.
+
+---
+
+## Step 7 — Chain all three
+
+```
+Use Playwright to visit https://mistral.ai/pricing and https://openai.com/pricing.
+Use Fetch to extract the pricing details from both pages.
+Store the pricing tiers in a SQLite table (provider, tier, price, features).
+Then query the table to show a side-by-side comparison.
 ```
 
 When tools chain together, things get interesting.

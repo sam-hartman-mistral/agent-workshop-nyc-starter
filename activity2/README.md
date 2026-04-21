@@ -16,10 +16,10 @@ Your MCP servers are connected. Now tell Vibe how to use them.
 
 What workflow would save you or your team time? Some ideas:
 
-- **Company research** — Playwright visits a website, Fetch pulls news, output a 1-page brief
-- **Competitive analysis** — compare two products by visiting their sites
-- **Documentation audit** — Fetch your docs site, check for broken links and outdated content
-- **Meeting prep** — pull LinkedIn profiles and recent news about attendees
+- **Pricing comparison** — Playwright visits pricing pages, Fetch extracts details, SQLite stores + queries a comparison table
+- **Company research** — Playwright visits a website, Fetch pulls news, SQLite stores findings, output a 1-page brief
+- **Competitive analysis** — visit two product sites, extract features, SQLite compares side-by-side
+- **Meeting prep** — Fetch LinkedIn profiles and recent news, SQLite tracks attendee history across meetings
 
 Pick one, or come up with your own.
 
@@ -37,7 +37,8 @@ Start a conversation:
 
 ```
 I want to build a skill that [describe your workflow].
-It should use Playwright to [what], Fetch to [what], and output [format].
+It should use Playwright to [what], Fetch to [what],
+and SQLite to [store/query what]. Output [format].
 What's your plan?
 ```
 
