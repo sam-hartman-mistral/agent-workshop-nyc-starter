@@ -11,7 +11,7 @@ You need these installed before we start:
 | **Node.js** (v18+) | `node --version` | [nodejs.org](https://nodejs.org) |
 | **Git** | `git --version` | [git-scm.com](https://git-scm.com) |
 
-If you already have these, you're good.
+Vibe's installer also sets up `uv` and `uvx` (needed for some MCP servers). If you already have these, you're good.
 
 ---
 
@@ -66,8 +66,8 @@ npx playwright install chromium
 
 | # | Activity | Time | What you'll do |
 |---|----------|------|----------------|
-| 1 | [Add MCP servers](./activity1/README.md) | ~20 min | Connect Vibe to Playwright, Fetch, and SQLite |
-| 2 | [Build the pricing skill](./activity2/README.md) | ~40 min | Turn the MCP chain into a reusable skill |
+| 1 | [Add MCP servers](./activity1/README.md) | ~25 min | Connect Vibe to Playwright, Fetch, and SQLite |
+| 2 | [Build the pricing skill](./activity2/README.md) | ~50 min | Turn the MCP chain into a reusable skill |
 | 3 | [Build your own](./activity3/README.md) | ~60 min | Create a skill that solves a real problem for you |
 
 We'll walk through Activities 1 and 2 together. Activity 3 is yours.

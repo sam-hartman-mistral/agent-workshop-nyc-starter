@@ -8,6 +8,13 @@
 
 ## Step 1 — Pick an idea
 
+Make sure you're in the project directory and Vibe is running:
+
+```bash
+cd agent-workshop-nyc-starter
+vibe
+```
+
 Choose one that resonates, or come up with your own. Copy-paste the starter prompt into Vibe.
 
 ### Option A: Meeting Prep Brief
@@ -86,7 +93,7 @@ Don't write the file yet — tell me your plan first.
 
 ## Step 2 — Challenge the plan
 
-Same as Activity 2. Push back:
+Same **plan → challenge → delegate** workflow from Activity 2. Push back:
 - "What if the site blocks automated access?"
 - "What if there's no data for one of the inputs?"
 - "How do you handle pages that take a long time to load?"
@@ -96,13 +103,9 @@ Same as Activity 2. Push back:
 
 ## Step 3 — Delegate
 
-When the plan is solid:
+When the plan is solid, use **Shift+Tab** to switch to Auto-Approve mode and tell Vibe to execute.
 
-```bash
-vibe --dangerously-skip-permissions
-```
-
-Or use Shift+Tab to cycle to Auto-Approve mode.
+> If you prefer, you can also relaunch with `vibe --dangerously-skip-permissions` — but you'll lose your current conversation.
 
 ---
 
@@ -134,7 +137,7 @@ Browse more at [github.com/modelcontextprotocol/servers](https://github.com/mode
 
 ## Share Out
 
-At the end of the session, you'll show what you built. **2 minutes each.**
+At the end of the session, we'll pick **5–6 volunteers** to demo what they built. **2 minutes each.**
 
 Structure:
 1. **What does your skill do?** (one sentence)
