@@ -1,67 +1,102 @@
-# Activity 2 — Wire a Sub-Agent
+# Activity 2 — Build the Pricing Comparison Skill
 
-**Goal:** Turn your skill into a named sub-agent that can be invoked on demand.
-
----
-
-## What's a sub-agent?
-
-A sub-agent is an agent with a fixed role, a set of tools, and a goal.
-You define it in a markdown file — same format as a skill, with a bit more structure.
+**Goal:** Turn the chain from Activity 1 into a reusable skill using plan/challenge/delegate.
 
 ---
 
-## Step 1 — Create the sub-agent file
+## What's a skill?
 
-Create `agents/pr-agent.md`:
+A markdown file that tells Vibe how to do something specific. It lives in `skills/` and you invoke it with `/skill-name`.
 
-```
-mkdir agents
-```
-
-```markdown
-# pr-agent
-
-## Role
-You are a senior code reviewer. You are thorough, direct, and specific.
-
-## Behavior
-When invoked, load the `/pr-reviewer` skill from skills/pr-reviewer.md
-and apply it to the current working directory.
-
-After reviewing, summarize:
-1. The top 3 issues (with file + line if possible)
-2. A one-sentence overall assessment
-3. Whether you would approve or request changes
-
-## Tools
-- Read files
-- Run git diff to see recent changes
-```
+You just chained Playwright + Fetch + SQLite manually. Now let's make Vibe write a skill that does it every time.
 
 ---
 
-## Step 2 — Invoke the sub-agent
+## Step 1 — Set up
 
 ```bash
-vibe --agent agents/pr-agent.md
-```
-
-Or from inside a running Vibe session:
-
-```
-/agent agents/pr-agent.md review the last commit
+mkdir -p skills
+vibe
 ```
 
 ---
 
-## Step 3 — Extend it
+## Step 2 — Plan with Vibe
 
-Try adding:
-- A rule to check for your team's specific patterns
-- An output section that creates a review comment draft
-- A second skill loaded alongside the first
+Start a conversation:
+
+```
+I want to build a skill called "pricing-compare" that compares
+pricing between two SaaS products.
+
+It should:
+1. Use Playwright to visit both pricing pages
+2. Use Fetch to extract pricing details as markdown
+3. Store the pricing tiers in SQLite (provider, tier, price, features)
+4. Query SQLite to generate a side-by-side comparison
+
+Output a comparison table + which is cheaper at different team sizes.
+Create it as skills/pricing-compare.md.
+
+What's your plan?
+```
+
+Read the plan carefully. Don't accept the first version.
 
 ---
 
-**Done?** Head to [Activity 3](../activity3/README.md) and build something for your org.
+## Step 3 — Challenge the plan
+
+Push back. Ask hard questions:
+
+- "What if the pricing page loads dynamically with JavaScript?"
+- "What if one provider doesn't list prices publicly?"
+- "How do you handle different billing periods (monthly vs annual)?"
+- "What if the SQLite table already has old data from a previous run?"
+
+Keep going until the plan is solid. This is the part that matters — a good plan means good output.
+
+---
+
+## Step 4 — Delegate
+
+When you're happy with the plan:
+
+```bash
+vibe --dangerously-skip-permissions
+```
+
+Let Vibe write the skill file. It will create `skills/pricing-compare.md`.
+
+---
+
+## Step 5 — Test it
+
+Invoke your skill:
+
+```
+/pricing-compare compare Mistral and OpenAI
+```
+
+Does it visit both sites? Extract pricing? Store in SQLite? Output a useful comparison?
+
+---
+
+## Step 6 — Iterate
+
+Try it again with different products:
+
+```
+/pricing-compare compare Notion and Confluence
+```
+
+Tweak the skill file if needed:
+- Change the output format
+- Add handling for edge cases you discovered
+- Add examples of good output
+
+Each iteration makes it better.
+
+---
+
+**Done?** Move on to [Activity 3](../activity3/README.md) — build your own skill for your org.

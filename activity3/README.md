@@ -1,61 +1,70 @@
-# Activity 3 — Build Something for Your Org
+# Activity 3 — Build Your Own Skill
 
-**This one is yours.** No instructions to follow — just build.
-
----
-
-## The prompt
-
-Think about the workflows that eat your team's time.
-
-What does "good" look like in your org that every new hire has to learn?
-What's the thing your team does manually that a skilled agent could do?
-
-Build a skill or sub-agent for that.
+**Goal:** Create a skill that solves a real problem for your organization, using your own MCP servers.
 
 ---
 
-## Ideas by role
+## Step 1 — Ideate
 
-**Engineering**
-- `/incident-runbook` — generate an on-call runbook from an alert
-- `/test-generator` — write tests that match your team's testing patterns
-- `/deploy-checklist` — verify pre-deploy steps specific to your stack
+Think about what would save you or your team time. Some ideas:
 
-**Product / PM**
-- `/requirements-format` — structure requirements in your team's template
-- `/user-story-writer` — write stories in your team's format and voice
-- `/release-notes` — draft release notes for your internal changelog
+- **Company research** — visit a company's site, pull recent news, store findings, output a 1-page brief before a meeting
+- **Competitive analysis** — compare two products by visiting their sites, extracting features, storing in SQLite
+- **Documentation audit** — fetch your docs site, check for outdated content, output a list of pages to update
+- **Meeting prep** — pull attendee profiles and recent news, store history across meetings
+- **Dashboard builder** — scrape data sources, store in SQLite, generate a summary report
 
-**DevOps / Infra**
-- `/config-validator` — check configs against your environment's rules
-- `/cost-report` — summarize cloud spend in your preferred format
-- `/oncall-summary` — turn alert history into a readable incident summary
-
-**Leadership**
-- `/meeting-brief` — turn raw notes into a structured decision doc
-- `/status-update` — draft a weekly status in your org's format
-- `/exec-summary` — condense a long doc to 3 bullets + recommendation
+You can also add new MCP servers that are useful for your workflow. Browse [MCP servers](https://github.com/modelcontextprotocol/servers) for ideas.
 
 ---
 
-## Structure (suggested)
+## Step 2 — Plan with Vibe
+
+```bash
+vibe
+```
 
 ```
-my-org-skills/
-├── skills/
-│   └── your-skill-name.md
-└── agents/          # optional
-    └── your-agent.md
+I want to build a skill that [describe your workflow].
+It should use [which MCP tools] to [do what].
+Output [what format].
+What's your plan?
 ```
+
+---
+
+## Step 3 — Challenge the plan
+
+Push back hard:
+- "What if [edge case]?"
+- "How do you handle [failure mode]?"
+- "What's the fallback if [tool] can't reach the site?"
+
+---
+
+## Step 4 — Delegate
+
+```bash
+vibe --dangerously-skip-permissions
+```
+
+---
+
+## Step 5 — Test and iterate
+
+```
+/your-skill [your input]
+```
+
+Tweak, re-invoke, repeat until the output is useful.
 
 ---
 
 ## Share out
 
 At the end of the session, you'll show what you built:
-- What does your skill/agent do?
+- What does your skill do?
+- Which MCP tools does it use?
 - What problem does it solve for your team?
-- What would you build next?
 
 2 minutes each. No pressure.
