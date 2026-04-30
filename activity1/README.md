@@ -2,7 +2,7 @@
 
 **Goal:** Add MCP servers to Vibe so it can browse the web, fetch pages, and store data.
 
-**Time:** ~20 minutes
+**Time:** ~25 minutes
 
 ---
 
@@ -18,21 +18,18 @@ Vibe's config lives at:
 %USERPROFILE%\.vibe\config.toml
 ```
 
-If it doesn't exist yet:
+If it doesn't exist yet, run this in your terminal (creates the directory and an empty config file):
 
 ```bash
 mkdir -p ~/.vibe
 touch ~/.vibe/config.toml
 ```
 
-Open it:
+Open it in any text editor:
 
 ```bash
-# Mac
-open -e ~/.vibe/config.toml
-
-# Linux
-nano ~/.vibe/config.toml
+# Mac (VS Code if you have it, otherwise nano)
+code ~/.vibe/config.toml || nano ~/.vibe/config.toml
 
 # Windows
 notepad %USERPROFILE%\.vibe\config.toml
@@ -64,20 +61,25 @@ args = ["mcp-server-fetch"]
 name = "sqlite"
 transport = "stdio"
 command = "uvx"
-args = ["mcp-server-sqlite", "--db-path", "/tmp/workshop.db"]
+args = ["mcp-server-sqlite", "--db-path", "workshop.db"]
 ```
 
 Save and close the file. No API keys needed — all three are free.
+
+> **Note:** `npx` comes with Node.js. `uvx` comes with `uv`, which Vibe's installer sets up. If either is missing, check the troubleshooting section in the main README.
 
 ---
 
 ## Step 3 — Restart Vibe
 
-Config only loads at startup. Quit Vibe (`Ctrl+C`) and relaunch:
+Config only loads at startup. Quit Vibe (`Ctrl+C` — that's **Control**, not Command) and relaunch:
 
 ```bash
+cd agent-workshop-nyc-starter
 vibe
 ```
+
+You should see Vibe start without errors. If you see warnings about MCP servers failing to connect, check that your config file is saved correctly.
 
 ---
 
@@ -89,7 +91,7 @@ Type this in Vibe:
 Use Fetch to get the content of https://mistral.ai and summarize it in 3 bullets.
 ```
 
-You should see Vibe call the `mcp_fetch` tool. If it returns a summary, Fetch is working.
+You should see Vibe call the Fetch server and return a summary. If it works, Fetch is connected.
 
 ---
 
@@ -100,7 +102,7 @@ Create a SQLite table called "companies" with columns: name, industry, and websi
 Insert 3 example companies, then query to show them all.
 ```
 
-You should see Vibe create the table, insert rows, and return results.
+You should see Vibe create the table, insert rows, and return results. The data is saved to `workshop.db` in your project folder.
 
 ---
 
@@ -110,7 +112,7 @@ You should see Vibe create the table, insert rows, and return results.
 Use Playwright to visit https://mistral.ai and describe what you see on the page.
 ```
 
-Vibe will launch a browser, navigate to the page, and describe the content. This one can take a few seconds.
+Vibe will launch a headless browser, navigate to the page, and describe the content. This one can take a few seconds — that's normal.
 
 > **If Playwright fails:** Run `npx playwright install chromium` in your terminal, then restart Vibe.
 
@@ -121,22 +123,21 @@ Vibe will launch a browser, navigate to the page, and describe the content. This
 Now the fun part — use all three tools together:
 
 ```
-Visit https://mistral.ai/pricing using Playwright.
-Use Fetch to extract the pricing details.
-Store the plans in a SQLite table with columns: plan_name, price, features.
-Then query the table to show all plans.
+Use Playwright to visit https://mistral.ai/pricing and extract the pricing plans.
+Store each plan in a SQLite table with columns: plan_name, price, features.
+Then query the table and show me a summary of all plans.
 ```
 
-When tools chain together, things get interesting. This is the workflow we'll turn into a skill in Activity 2.
+When tools chain together, things get interesting. This is the workflow we'll turn into a reusable skill in Activity 2.
 
 ---
 
-## What you should have
+## Checklist
 
 - [ ] Config file with 3 MCP servers
 - [ ] Fetch working (can retrieve web content)
 - [ ] SQLite working (can create tables and query data)
 - [ ] Playwright working (can browse websites)
-- [ ] All three chained together successfully
+- [ ] All three chained in one prompt
 
-**Done?** Move on to [Activity 2](../activity2/README.md) — build a skill that automates this workflow.
+**All boxes checked? Raise your hand so we know you're ready.** Then move on to [Activity 2](../activity2/README.md).

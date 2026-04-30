@@ -1,20 +1,41 @@
 # Activity 2 — Build the Pricing Comparison Skill
 
-**Goal:** Turn the chain from Activity 1 into a reusable skill using the plan/challenge/delegate workflow.
+**Goal:** Turn the chain from Activity 1 into a reusable skill using the **plan → challenge → delegate** workflow.
 
-**Time:** ~40 minutes
+**Time:** ~50 minutes
 
 ---
 
 ## What's a skill?
 
-A markdown file that tells Vibe how to do something specific. It lives in the `skills/` directory of your project and you invoke it with `/skill-name`.
+A markdown file that teaches Vibe how to do something specific. It lives in a `skills/` directory in your project. When Vibe sees a skill file, it learns that capability automatically.
+
+Here's the basic structure:
+
+```markdown
+# Skill: my-skill-name
+
+## What this skill does
+One-line description of what it does.
+
+## Steps
+1. First, do X using [tool]
+2. Then do Y
+3. Finally, output Z
+
+## Output format
+Describe what the result should look like.
+```
+
+You invoke a skill by typing `/skill-name` in Vibe. That's a **slash command** — Vibe reads the matching skill file and follows its instructions.
 
 You just chained Playwright + Fetch + SQLite manually. Now let's teach Vibe to do it every time.
 
 ---
 
 ## Step 1 — Set up the skills directory
+
+Make sure you launch Vibe **from the project directory** — that's how it discovers skill files.
 
 ```bash
 cd agent-workshop-nyc-starter
@@ -24,7 +45,13 @@ vibe
 
 ---
 
-## Step 2 — Plan with Vibe
+## Step 2 — Plan with Vibe (plan → challenge → delegate)
+
+This is the core workflow for working with coding agents. You'll use it in every activity:
+
+1. **Plan** — Ask the agent to propose a plan. Don't let it code yet.
+2. **Challenge** — Push back on the plan. Find edge cases, ask hard questions.
+3. **Delegate** — When the plan is solid, let the agent execute.
 
 Copy-paste this prompt into Vibe:
 
@@ -64,16 +91,17 @@ Keep going until the plan handles edge cases. This is the part that matters — 
 
 ## Step 4 — Delegate
 
-When you're happy with the plan, tell Vibe to execute it. You can either:
+When you're happy with the plan, tell Vibe to execute it.
 
-**Option A:** Use Shift+Tab to cycle to Auto-Approve mode, then say "go ahead and write the skill file."
+Use **Shift+Tab** to cycle to **Auto-Approve** mode (you'll see the indicator change in the bottom bar). Then say:
 
-**Option B:** Relaunch in autonomous mode:
-```bash
-vibe --dangerously-skip-permissions
+```
+Go ahead and write the skill file.
 ```
 
 Vibe will create `skills/pricing-compare.md`.
+
+> **Tip:** You can also launch Vibe with `vibe --dangerously-skip-permissions` for full auto-approve from the start. But if you do this mid-conversation, you'll lose your current session — so Shift+Tab is usually better.
 
 ---
 
@@ -96,19 +124,18 @@ Watch what happens. Does it:
 You should get something like:
 
 ```
-| Provider | Tier      | Price        | Key Features              |
-|----------|-----------|--------------|---------------------------|
-| Mistral  | Free      | $0           | Rate-limited, community   |
-| Mistral  | Team      | $25/user/mo  | Higher limits, support    |
-| OpenAI   | Free      | $0           | GPT-4o mini, limited      |
-| OpenAI   | Plus      | $20/user/mo  | GPT-4o, higher limits     |
-| ...      | ...       | ...          | ...                       |
+| Provider | Model         | Input $/1M tokens | Output $/1M tokens | Context |
+|----------|---------------|--------------------|--------------------|---------|
+| Mistral  | Small         | $0.10              | $0.30              | 32k     |
+| Mistral  | Large         | $2.00              | $6.00              | 128k    |
+| OpenAI   | GPT-4o mini   | $0.15              | $0.60              | 128k    |
+| OpenAI   | GPT-4o        | $2.50              | $10.00             | 128k    |
+| ...      | ...           | ...                | ...                | ...     |
 
-At 10 users: Mistral Team = $250/mo vs OpenAI Plus = $200/mo
-At 100 users: ...
+Summary: Mistral is cheaper at every tier. Small vs 4o-mini saves ~30%.
 ```
 
-The exact numbers don't matter — the point is that Vibe chained all three tools automatically.
+The exact numbers will vary (pricing pages change!) — the point is that Vibe chained all three tools automatically.
 
 ---
 
