@@ -2,26 +2,47 @@
 
 **Goal:** Add MCP servers to Vibe so it can browse the web, fetch pages, and store data.
 
+**Time:** ~20 minutes
+
 ---
 
 ## Step 1 — Find your config file
 
-```bash
-# macOS / Linux
+Vibe's config lives at:
+
+```
+# Mac / Linux
 ~/.vibe/config.toml
 
-# If it doesn't exist:
+# Windows
+%USERPROFILE%\.vibe\config.toml
+```
+
+If it doesn't exist yet:
+
+```bash
 mkdir -p ~/.vibe
 touch ~/.vibe/config.toml
 ```
 
-Open the file in your editor.
+Open it:
+
+```bash
+# Mac
+open -e ~/.vibe/config.toml
+
+# Linux
+nano ~/.vibe/config.toml
+
+# Windows
+notepad %USERPROFILE%\.vibe\config.toml
+```
 
 ---
 
 ## Step 2 — Add MCP servers
 
-Paste this into `~/.vibe/config.toml`:
+Paste this into the config file:
 
 ```toml
 # Browser automation — visit pages, click, take screenshots
@@ -46,58 +67,76 @@ command = "uvx"
 args = ["mcp-server-sqlite", "--db-path", "/tmp/workshop.db"]
 ```
 
-No API keys. No sign up. All free.
+Save and close the file. No API keys needed — all three are free.
 
 ---
 
 ## Step 3 — Restart Vibe
 
-The config only loads at startup. Quit Vibe (`Ctrl+C`) and run `vibe` again.
+Config only loads at startup. Quit Vibe (`Ctrl+C`) and relaunch:
+
+```bash
+vibe
+```
 
 ---
 
-## Step 4 — Test Playwright
+## Step 4 — Test Fetch
+
+Type this in Vibe:
 
 ```
-Use Playwright to visit https://mistral.ai and describe what you see.
+Use Fetch to get the content of https://mistral.ai and summarize it in 3 bullets.
 ```
 
-You should see Vibe call the `playwright` tool. If it works, Vibe now has a browser.
+You should see Vibe call the `mcp_fetch` tool. If it returns a summary, Fetch is working.
 
 ---
 
-## Step 5 — Test Fetch
-
-```
-Use Fetch to get the content of https://news.ycombinator.com and tell me the top 3 stories.
-```
-
-Fetch pulls web pages as clean markdown — useful for reading docs, articles, APIs.
-
----
-
-## Step 6 — Test SQLite
+## Step 5 — Test SQLite
 
 ```
 Create a SQLite table called "companies" with columns: name, industry, and website.
 Insert 3 example companies, then query to show them all.
 ```
 
-You should see Vibe create the table, insert rows, and return results. Data persists in `/tmp/workshop.db`.
+You should see Vibe create the table, insert rows, and return results.
+
+---
+
+## Step 6 — Test Playwright
+
+```
+Use Playwright to visit https://mistral.ai and describe what you see on the page.
+```
+
+Vibe will launch a browser, navigate to the page, and describe the content. This one can take a few seconds.
+
+> **If Playwright fails:** Run `npx playwright install chromium` in your terminal, then restart Vibe.
 
 ---
 
 ## Step 7 — Chain all three
 
+Now the fun part — use all three tools together:
+
 ```
-Use Playwright to visit https://mistral.ai/pricing and https://openai.com/pricing.
-Use Fetch to extract the pricing details from both pages.
-Store the pricing tiers in a SQLite table (provider, tier, price, features).
-Then query the table to show a side-by-side comparison.
+Visit https://mistral.ai/pricing using Playwright.
+Use Fetch to extract the pricing details.
+Store the plans in a SQLite table with columns: plan_name, price, features.
+Then query the table to show all plans.
 ```
 
-When tools chain together, things get interesting.
+When tools chain together, things get interesting. This is the workflow we'll turn into a skill in Activity 2.
 
 ---
 
-**Done?** Move on to [Activity 2](../activity2/README.md) — build a skill that uses these tools.
+## What you should have
+
+- [ ] Config file with 3 MCP servers
+- [ ] Fetch working (can retrieve web content)
+- [ ] SQLite working (can create tables and query data)
+- [ ] Playwright working (can browse websites)
+- [ ] All three chained together successfully
+
+**Done?** Move on to [Activity 2](../activity2/README.md) — build a skill that automates this workflow.

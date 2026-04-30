@@ -1,6 +1,19 @@
 # Mistral AI Agent Workshop — NYC 2026
 
-Your workspace for the workshop. Everything you need is in this README.
+Your workspace for the workshop. Follow the setup below, then jump into the activities.
+
+## Prerequisites
+
+You need these installed before we start:
+
+| Tool | Check | Install if missing |
+|------|-------|--------------------|
+| **Node.js** (v18+) | `node --version` | [nodejs.org](https://nodejs.org) |
+| **Git** | `git --version` | [git-scm.com](https://git-scm.com) |
+
+If you already have these, you're good.
+
+---
 
 ## Setup
 
@@ -39,127 +52,47 @@ git clone https://github.com/sam-hartman-mistral/agent-workshop-nyc-starter
 cd agent-workshop-nyc-starter
 ```
 
----
+### 5. Pre-install Playwright browser
 
-## Adding MCP Servers
-
-MCP servers give Vibe access to external tools. No API keys needed for these.
-
-### Where is the config file?
-
-```
-~/.vibe/config.toml
-```
-
-If it doesn't exist yet, create it:
+This downloads Chromium so you don't have to wait during the workshop:
 
 ```bash
-mkdir -p ~/.vibe
-touch ~/.vibe/config.toml
-```
-
-### Copy-paste this config
-
-Open `~/.vibe/config.toml` and paste:
-
-```toml
-# Browser automation — visit pages, click, take screenshots
-[[mcp_servers]]
-name = "playwright"
-transport = "stdio"
-command = "npx"
-args = ["-y", "@playwright/mcp"]
-
-# Fetch any URL as clean markdown
-[[mcp_servers]]
-name = "fetch"
-transport = "stdio"
-command = "uvx"
-args = ["mcp-server-fetch"]
-
-# Local SQLite database — store, query, compare
-[[mcp_servers]]
-name = "sqlite"
-transport = "stdio"
-command = "uvx"
-args = ["mcp-server-sqlite", "--db-path", "/tmp/workshop.db"]
-```
-
-### After saving
-
-Quit Vibe (`Ctrl+C`) and relaunch it so it picks up the new servers.
-
-### Verify it works
-
-In Vibe, try:
-
-```
-Use Fetch to get the content of https://mistral.ai and summarize it in 3 bullets
-```
-
-If you see Vibe calling the Fetch tool, you're good.
-
----
-
-## Adding Skills
-
-A skill is a markdown file that tells Vibe how to do something specific.
-
-### Where do skills live?
-
-```
-skills/your-skill-name.md
-```
-
-Create the directory:
-
-```bash
-mkdir -p skills
-```
-
-### Example skill
-
-Create `skills/pricing-compare.md`:
-
-```markdown
-# pricing-compare
-
-Compare pricing between two SaaS products.
-
-## Workflow
-1. Use Playwright to visit both pricing pages
-2. Use Fetch to extract pricing details as markdown
-3. Store pricing tiers in SQLite (product, tier, price, features)
-4. Query SQLite to generate a side-by-side comparison table
-
-## Output format
-- Comparison table (tier, price per seat, key features)
-- Which is cheaper at 10, 100, 1000 seats
-- Key differences summary (3 bullets)
-```
-
-### Invoke it
-
-In Vibe:
-
-```
-/pricing-compare compare Notion and Confluence
+npx playwright install chromium
 ```
 
 ---
 
 ## Activities
 
-| Activity | What you'll do |
-|---|---|
-| [Activity 1](./activity1/README.md) | Add MCP servers and test them |
-| [Activity 2](./activity2/README.md) | Build the pricing comparison skill (plan/challenge/delegate) |
-| [Activity 3](./activity3/README.md) | Build your own skill for your org |
+| # | Activity | Time | What you'll do |
+|---|----------|------|----------------|
+| 1 | [Add MCP servers](./activity1/README.md) | ~20 min | Connect Vibe to Playwright, Fetch, and SQLite |
+| 2 | [Build the pricing skill](./activity2/README.md) | ~40 min | Turn the MCP chain into a reusable skill |
+| 3 | [Build your own](./activity3/README.md) | ~60 min | Create a skill that solves a real problem for you |
 
 We'll walk through Activities 1 and 2 together. Activity 3 is yours.
 
 ---
 
-## Questions?
+## Troubleshooting
 
-Raise your hand or ask us — we're walking around.
+**`npx: command not found`**
+You need Node.js. Install it from [nodejs.org](https://nodejs.org), then restart your terminal.
+
+**`uvx: command not found`**
+Vibe's installer should have set this up. Try restarting your terminal. If it still fails:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | bash
+```
+
+**Playwright won't launch / browser error**
+Run `npx playwright install chromium` to download the browser binary.
+
+**Vibe doesn't see MCP servers after editing config**
+You must quit Vibe (`Ctrl+C`) and relaunch it. Config only loads at startup.
+
+**Config file location on Windows**
+Use `%USERPROFILE%\.vibe\config.toml` instead of `~/.vibe/config.toml`.
+
+**Something else?**
+Raise your hand — we're walking around.
