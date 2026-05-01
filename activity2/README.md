@@ -8,15 +8,18 @@
 
 ## What's a skill?
 
-A markdown file that teaches Vibe how to do something specific. It lives in a `skills/` directory in your project. When Vibe sees a skill file, it learns that capability automatically.
+A markdown file called `SKILL.md` that teaches Vibe how to do something specific. It lives in `.vibe/skills/<skill-name>/SKILL.md` in your project. When Vibe sees a skill file, it learns that capability automatically.
 
 Here's the basic structure:
 
 ```markdown
-# Skill: my-skill-name
+---
+name: my-skill-name
+description: One-line description of what it does.
+user-invocable: true
+---
 
-## What this skill does
-One-line description of what it does.
+# My Skill Name
 
 ## Steps
 1. First, do X using [tool]
@@ -27,7 +30,7 @@ One-line description of what it does.
 Describe what the result should look like.
 ```
 
-You invoke a skill by typing `/skill-name` in Vibe. That's a **slash command** — Vibe reads the matching skill file and follows its instructions.
+You invoke a skill by typing `/my-skill-name` in Vibe. That's a **slash command** — Vibe reads the matching SKILL.md file and follows its instructions.
 
 You just chained Playwright + Fetch + SQLite manually. Now let's teach Vibe to do it every time.
 
@@ -39,7 +42,7 @@ Make sure you launch Vibe **from the project directory** — that's how it disco
 
 ```bash
 cd agent-workshop-nyc-starter
-mkdir -p skills
+mkdir -p .vibe/skills/pricing-compare
 vibe
 ```
 
@@ -66,7 +69,7 @@ It should:
 4. Query SQLite to generate a side-by-side comparison
 
 Output a comparison table + which is cheaper at different team sizes.
-Create it as skills/pricing-compare.md
+Create it as .vibe/skills/pricing-compare/SKILL.md
 
 Don't write the file yet — tell me your plan first.
 ```
@@ -99,7 +102,7 @@ Use **Shift+Tab** to cycle to **Auto-Approve** mode (you'll see the indicator ch
 Go ahead and write the skill file.
 ```
 
-Vibe will create `skills/pricing-compare.md`.
+Vibe will create `.vibe/skills/pricing-compare/SKILL.md`.
 
 > **Tip:** You can also launch Vibe with `vibe --dangerously-skip-permissions` for full auto-approve from the start. But if you do this mid-conversation, you'll lose your current session — so Shift+Tab is usually better.
 
@@ -148,7 +151,7 @@ Try it with different products:
 ```
 
 Tweak the skill file if needed:
-- Open `skills/pricing-compare.md` in your editor
+- Open `.vibe/skills/pricing-compare/SKILL.md` in your editor
 - Change the output format
 - Add handling for edge cases you discovered
 - Add examples of what good output looks like
