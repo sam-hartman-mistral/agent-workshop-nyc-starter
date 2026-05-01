@@ -1,10 +1,12 @@
-active_model = "mistral-medium-latest"
+active_model = "mistral-medium-3.5"
 voice_mode_enabled = true
 
 [[models]]
-name = "mistral-medium-latest"
+name = "mistral-vibe-cli-latest"
 provider = "mistral"
-alias = "mistral-medium-latest"
+alias = "mistral-medium-3.5"
+temperature = 1.0
+thinking = "high"
 
 [[mcp_servers]]
 name = "playwright"

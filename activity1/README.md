@@ -4,86 +4,20 @@
 
 **Time:** ~25 minutes
 
----
+## Step 1 — Launch Vibe
 
-## Step 1 — Find your config file
-
-Vibe's config lives at:
-
-```
-# Mac / Linux
-~/.vibe/config.toml
-
-# Windows
-%USERPROFILE%\.vibe\config.toml
-```
-
-If it doesn't exist yet, run this in your terminal (creates the directory and an empty config file):
-
-```bash
-mkdir -p ~/.vibe
-touch ~/.vibe/config.toml
-```
-
-Open it in any text editor:
-
-```bash
-# Mac (VS Code if you have it, otherwise nano)
-code ~/.vibe/config.toml || nano ~/.vibe/config.toml
-
-# Windows
-notepad %USERPROFILE%\.vibe\config.toml
-```
-
----
-
-## Step 2 — Add MCP servers
-
-Paste this into the config file:
-
-```toml
-# Browser automation — visit pages, click, take screenshots
-[[mcp_servers]]
-name = "playwright"
-transport = "stdio"
-command = "npx"
-args = ["-y", "@playwright/mcp"]
-
-# Fetch any URL as clean markdown
-[[mcp_servers]]
-name = "fetch"
-transport = "stdio"
-command = "uvx"
-args = ["mcp-server-fetch"]
-
-# Local SQLite database — store, query, compare
-[[mcp_servers]]
-name = "sqlite"
-transport = "stdio"
-command = "uvx"
-args = ["mcp-server-sqlite", "--db-path", "workshop.db"]
-```
-
-Save and close the file. No API keys needed — all three are free.
-
-> **Note:** `npx` comes with Node.js. `uvx` comes with `uv`, which Vibe's installer sets up. If either is missing, check the troubleshooting section in the main README.
-
----
-
-## Step 3 — Restart Vibe
-
-Config only loads at startup. Quit Vibe (`Ctrl+C` — that's **Control**, not Command) and relaunch:
+Three MCP servers (Playwright, Fetch, SQLite) are already configured in the repo's `.vibe/config.toml`. Just launch Vibe from the project root:
 
 ```bash
 cd agent-workshop-nyc-starter
 vibe
 ```
 
-You should see Vibe start without errors. If you see warnings about MCP servers failing to connect, check that your config file is saved correctly.
+You should see `3 MCP servers` in the startup banner. If you see warnings about MCP servers failing to connect, raise your hand.
 
 ---
 
-## Step 4 — Test Fetch
+## Step 2 — Test Fetch
 
 Type this in Vibe:
 
@@ -95,7 +29,7 @@ You should see Vibe call the Fetch server and return a summary. If it works, Fet
 
 ---
 
-## Step 5 — Test SQLite
+## Step 3 — Test SQLite
 
 ```
 Create a SQLite table called "companies" with columns: name, industry, and website.
@@ -106,7 +40,7 @@ You should see Vibe create the table, insert rows, and return results. The data 
 
 ---
 
-## Step 6 — Test Playwright
+## Step 4 — Test Playwright
 
 ```
 Use Playwright to visit https://mistral.ai and describe what you see on the page.
@@ -118,7 +52,7 @@ Vibe will launch a headless browser, navigate to the page, and describe the cont
 
 ---
 
-## Step 7 — Chain all three
+## Step 5 — Chain all three
 
 Now the fun part — use all three tools together:
 
