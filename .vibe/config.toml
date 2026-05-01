@@ -1,10 +1,10 @@
-active_model = "mistral-medium-3.5"
+active_model = "mistral-medium-latest"
 voice_mode_enabled = true
 
 [[models]]
-name = "mistral-medium-3.5"
+name = "mistral-medium-latest"
 provider = "mistral"
-alias = "mistral-medium-3.5"
+alias = "mistral-medium-latest"
 
 [[mcp_servers]]
 name = "playwright"
