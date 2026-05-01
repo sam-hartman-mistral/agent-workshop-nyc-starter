@@ -36,13 +36,12 @@ You just chained Playwright + Fetch + SQLite manually. Now let's teach Vibe to d
 
 ---
 
-## Step 1 — Set up the skills directory
+## Step 1 — Launch Vibe from the project directory
 
-Make sure you launch Vibe **from the project directory** — that's how it discovers skill files.
+A skeleton skill is already in the repo at `.vibe/skills/pricing-compare/SKILL.md`. Just launch Vibe from the project root:
 
 ```bash
 cd agent-workshop-nyc-starter
-mkdir -p .vibe/skills/pricing-compare
 vibe
 ```
 
