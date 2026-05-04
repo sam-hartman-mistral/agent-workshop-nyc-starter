@@ -109,6 +109,8 @@ Vibe will create `.vibe/skills/pricing-compare/SKILL.md`.
 
 ## Step 5 — Test it
 
+> **Note:** If Vibe was already running when you created the skill, quit it (`Ctrl+C`) and relaunch it. Vibe only loads skills at startup.
+
 Invoke your skill:
 
 ```
